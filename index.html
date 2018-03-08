@@ -1,31 +1,32 @@
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Minigames | danbraj</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 </head>
+
 <body>
 
     <div id="game">
 
-        <div id="question"></div>
+        <div id="question" :style="{ 'background-color': currColor }"></div>
 
-        <p id="timer"></p>
+        <p>Zadanie numer: {{ taskCounter }}</p>
 
-        <div id="answers-list">
-            <button class="answer" data-name="red">czerwony</button>
-            <button class="answer" data-name="green">zielony</button>
-            <button class="answer" data-name="blue">niebieski</button>
-            <button class="answer" data-name="yellow">źółty</button>
-        </div>
+        <p>Czas: {{ timer }}</p>
 
-        <p>Liczba poprawnych odpowiedzi: <span id="score">0</span></p>
+        <button class="answer" v-for="color in colors" v-bind:data-name="color" v-on:click="answer($event)">{{ color }}</button>
+
+        <p>Liczba poprawnych odpowiedzi: {{ score }}</p>
 
     </div>
 
     <script src="js/core.js"></script>
 </body>
+
 </html>
