@@ -1,4 +1,30 @@
-#question {
+#game1 #question {
     width: 100px;
     height: 100px;
+}
+
+#game2 .map {
+    position: relative;
+    pointer-events: none;
+}
+
+#game2 .tile {
+    width: 30px;
+    height: 30px;
+    margin: 1px;
+    text-align: center;
+    border: 1px solid gray;
+    font-size: 16px;
+    line-height: 30px;
+}
+
+#game2 player {
+    position: absolute;
+    background-color: cyan;
+    top: 0;
+    left: 0;
+}
+
+#game2 .cell {
+    display: inline-block;
 }

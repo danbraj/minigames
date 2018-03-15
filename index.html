@@ -7,12 +7,16 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Minigames | danbraj</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.15/vue.min.js"></script>
 </head>
 
 <body>
 
-    <div id="game">
+    <h1>Minigames</h1>
+
+    <h2>Game 1</h2>
+
+    <div id="game1">
 
         <div id="question" :style="{ 'background-color': currColor }"></div>
 
@@ -26,7 +30,21 @@
 
     </div>
 
-    <script src="js/core.js"></script>
+    <h2>Game 2</h2>
+
+    <div id="game2">
+
+        <div class="map">
+            <player class="tile">P</player>
+            <div class="row" v-for="row in rows">
+                <div class="tile cell" v-for="cell in columns">-</div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="js/game1.js"></script>
+    <script src="js/game2.js"></script>
 </body>
 
 </html>

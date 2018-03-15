@@ -1,5 +1,5 @@
 var game = new Vue({
-    el: '#game',
+    el: '#game1',
     data: {
         intervalId: null,
         taskCounter: 0,
