@@ -1,7 +1,7 @@
 <template>
-    <div class="card" v-bind:class="{ 'flipped': isFlipped, 'matched': isMatched }" @click="flip">
+    <div class="card" v-bind:class="{ 'flipped': card.isFlipped, 'matched': card.isMatched }">
         <svg class="front">
-            <use :xlink:href="getPicUrl(card)"></use>
+            <use :xlink:href="getPicUrl(card.handle)"></use>
         </svg>
         <div class="back"></div>
     </div>
@@ -14,18 +14,9 @@ export default {
     props: [
         'card'
     ],
-    data() {
-        return {
-            isFlipped: false,
-            isMatched: false
-        }
-    },
     methods: {
-        getPicUrl(card) {
-            return `${svg}#${card}`;
-        },
-        flip() {
-            this.isFlipped = !this.isFlipped;
+        getPicUrl(handle) {
+            return `${svg}#${handle}`;
         }
     }
 }
@@ -33,14 +24,17 @@ export default {
 
 <style lang="scss" scoped>
 .card {
-    margin: 10px;
+    margin: 5%;
     position: relative;
     transition: transform 0.76s;
     transform-style: preserve-3d;
-    cursor: pointer;
+
+    &.flipped {
+        transform: rotateY(180deg);
+    }
 }
 
-.front, .back {
+%card-side {
     box-sizing: border-box;
     position: absolute;
     left: 0;
@@ -52,18 +46,27 @@ export default {
 }
 
 .front {
+    @extend %card-side;
     border: 1px solid #ccc;
     padding: 15px;
     background: beige;
+    transform: rotateY(180deg);//
+
+    .matched > & {
+        animation: out 1s normal forwards ease-in-out;
+    }
+
+    @keyframes out {
+        from {opacity: 1;}
+        to {opacity: 0.2;}
+    }
 }
 
 .back {
+    @extend %card-side;
     border: 1px solid #aaa;
-    background: burlywood;
-    transform: rotateY(180deg);
-}
-
-.flipped {
-    transform: rotateY(180deg);
+    background: #cca4a3;
+    cursor: pointer;
+    //transform: rotateY(180deg);
 }
 </style>

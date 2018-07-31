@@ -19,7 +19,7 @@ export default {
                     name: 'memory',
                     title: 'Memory',
                     description: 'Memory game',
-                    status: 'inprogress'
+                    status: 'beta'
                 },
                 {
                     name: 'playground',

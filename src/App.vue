@@ -27,6 +27,10 @@ export default {
   margin-top: 60px;
 }
 
+body {
+  margin: 0;
+}
+
 h1, h2 {
   font-weight: normal;
 }
@@ -43,5 +47,24 @@ li {
 
 a {
   color: #42b983;
+}
+
+.btn {
+  color: #42b983;
+  border: 1px #42b983 solid;
+  background: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1.2em;
+  text-transform: uppercase;
+  margin: 10px;
+  padding: 14px 26px;
+  display: inline-block;
+
+  &:hover {
+    text-decoration:none;
+    background: #42b983;
+    color: #fff;
+  }
 }
 </style>
