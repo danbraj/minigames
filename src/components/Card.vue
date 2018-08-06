@@ -1,7 +1,7 @@
 <template>
     <div class="card" v-bind:class="{ 'flipped': card.isFlipped, 'matched': card.isMatched }">
         <svg class="front">
-            <use :xlink:href="getPicUrl(card.handle)"></use>
+            <use :href="getPicUrl(card.handle)"></use>
         </svg>
         <div class="back"></div>
     </div>
@@ -26,7 +26,7 @@ export default {
 .card {
     margin: 5%;
     position: relative;
-    transition: transform 0.76s;
+    transition: transform 0.33s;
     transform-style: preserve-3d;
 
     &.flipped {

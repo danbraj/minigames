@@ -15,6 +15,6 @@ const routes = [
 
 new Vue({
   el: '#app',
-  router: new VueRouter({routes, mode: 'history'}),
+  router: new VueRouter({routes, mode: 'history', base: '/minigames'}),
   render: h => h(App)
 })
