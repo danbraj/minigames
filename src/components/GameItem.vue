@@ -2,7 +2,7 @@
     <router-link :to="game.name">
         <div class="game-block">
             <p class="title">{{ game.title }}</p>
-            <span class="status">{{ game.status }}</span>
+            <span class="status" v-if="game.status != ''">{{ game.status }}</span>
         </div>
     </router-link>
 </template>

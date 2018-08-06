@@ -19,13 +19,19 @@ export default {
                     name: 'memory',
                     title: 'Memory',
                     description: 'Memory game',
-                    status: 'beta'
+                    status: ''
                 },
                 {
-                    name: 'playground',
-                    title: 'Playground',
-                    description: 'Description..',
-                    status: 'todo'
+                    name: 'match3',
+                    title: 'Match 3',
+                    description: 'Match 3 puzzle game',
+                    status: 'Inprogress'
+                },
+                {
+                    name: '/',
+                    title: '',
+                    description: '..',
+                    status: 'Coming soon'
                 }
             ]
         }

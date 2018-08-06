@@ -3,14 +3,14 @@ import VueRouter from 'vue-router'
 import App from './App.vue'
 import Home from './pages/Home'
 import Memory from './pages/Memory'
-import Playground from './pages/Playground'
+import Match3 from './pages/Match3'
 
 Vue.use(VueRouter);
 
 const routes = [
   { path: '/', component: Home },
   { path: '/memory', component: Memory },
-  { path: '/playground', component: Playground },
+  { path: '/match3', component: Match3 },
 ]
 
 new Vue({
