@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <h2>Match 3</h2>
-        <div class="board">
+        <div class="board" v-bind:class="{ loaded }">
             <item v-for="(item, index) in items" :key="index" :item="item"></item>
         </div>
     </div>
@@ -36,10 +36,12 @@ export default {
         this.items = arr.map(x => {
             return { handle: x };
         });
+        this.loaded = true;
     },
     data() {
         return {
-            items: []
+            items: [],
+            loaded: false
         }
     }
 }
@@ -55,5 +57,18 @@ export default {
     grid-template: repeat(8, 1fr) / repeat(10, 1fr);
     width: 1000px;
     height: 800px;
+    overflow: hidden;
+}
+.item {
+    position: relative;
+    top: -800px;
+    .loaded > & {
+        background-color: white;
+        animation: godown 2s normal forwards cubic-bezier(0.550, 0.055, 0.675, 0.190);
+        @keyframes godown {
+            from {top: -800px}
+            to {top: 0}
+        }
+    }
 }
 </style>
