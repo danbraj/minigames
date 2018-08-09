@@ -2,7 +2,7 @@
     <div class="container">
         <h2>Match 3</h2>
         <div class="board" v-bind:class="{ loaded }">
-            <item v-for="(e, idx) in items" :key="idx" :item="e" v-if="e != null" v-bind:style="{ left: px(e.x*100), top: px(e.y*100) }" @click.native="del(idx)"></item>
+            <item v-for="(e, idx) in items" :key="idx" :idx="idx" :item="e" v-if="e != null" v-bind:style="{ left: px(e.x*100), top: px(e.y*100) }" @click.native="del(idx)"></item>
         </div>
     </div>
 </template>
@@ -66,13 +66,13 @@ export default {
                 const index = x + i * 10;
                 if (i < y) {
                     this.items[prev] = this.items[index];
-                    this.items[prev].y++;
+                    this.items[prev].y++; //+2
                 } 
                 if (i == 0) {
                     this.$set(this.items, index, {
                         handle: itemsTypes[Math.floor(Math.random() * count)],
                         x: index,
-                        y: 0
+                        y: 0 //+1
                     });
                 };
                 prev = index;
@@ -98,8 +98,8 @@ export default {
 }
 .item {
     position: absolute;
-    top: -100px;
-    transition: top 2s ease;
+    top: 0px;
+    transition: top 0.33s cubic-bezier(0.550, 0.055, 0.675, 0.190);
     // .loaded > & {
     //     background-color: white;
     //     animation: godown 2s normal forwards cubic-bezier(0.550, 0.055, 0.675, 0.190);
