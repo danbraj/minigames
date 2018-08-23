@@ -24,7 +24,10 @@ export default {
 
 <style lang="scss" scoped>
 .card {
-    margin: 5%;
+    box-sizing: border-box;
+    width: 100px;
+    height: 100px;
+    margin: 10px;
     position: relative;
     transition: transform 0.33s;
     transform-style: preserve-3d;
@@ -48,7 +51,7 @@ export default {
 .front {
     @extend %card-side;
     border: 1px solid #ccc;
-    padding: 15px;
+    padding: 10px;
     background: beige;
     transform: rotateY(180deg);//
 

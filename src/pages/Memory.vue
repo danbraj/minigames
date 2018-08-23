@@ -11,7 +11,7 @@
 <script>
 import Card from './../components/Card';
 
-let cards = [
+const cardsDefs = [
   'apple',
   'banana',
   'blueberries',
@@ -19,7 +19,11 @@ let cards = [
   'pear',
   'lemon',
   'nut',
-  'grape'
+  'grape',
+  'watermelon',
+  'cherry',
+  'plum',
+  'pineapple'
 ];
 
 export default {
@@ -27,8 +31,8 @@ export default {
     card: Card
   },
   created() {
-    this.cards = cards
-      .concat(cards)
+    this.cards = cardsDefs
+      .concat(cardsDefs)
       .sort(() => 0.5 - Math.random())
       .map(x => {
         return { handle: x, isFlipped: false, isMatched: false };
@@ -39,7 +43,7 @@ export default {
   },
   data() {
     return {
-      cards,
+      cards: [],
       cardsCount: -1,
       cardsLeft: -1,
       first: -1,
@@ -99,14 +103,14 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  width: 600px;
+  width: 800px;
   margin: 0 auto;
 }
 .board {
-  display: grid;
-  width: 600px;
-  height: 600px;
-  grid-template: repeat(4, 1fr) / repeat(4, 1fr);
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 800px;
   perspective: 500px;
   margin: 20px 0;
 
@@ -114,14 +118,13 @@ export default {
     pointer-events: none;
   }
 }
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 800px) {
   .container {
     width: 100%;
     margin: 0;
   }
   .board {
     width: 100vw;
-    height: 100vw;
   }
 }
 </style>
