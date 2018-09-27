@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import svg from './../assets/owoce.svg';
+import svg from '@/assets/owoce.svg';
 
 export default {
     props: [

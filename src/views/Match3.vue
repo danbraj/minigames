@@ -1,6 +1,5 @@
 <template>
     <div class="container">
-        <h2>Playground</h2>
-        <p>To do</p>
+        <h2>Match 3</h2>
     </div>
 </template>

@@ -16,6 +16,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import './../scss/base/variables';
 a {
     text-decoration: none;
     display: inline-block;
@@ -33,7 +34,7 @@ p {
     display: inline-block;
     width: 200px;
     height: 100px;
-    background-color: #CDEBA7;
+    background-color: $secondary-color;
     position: relative;
 }
 

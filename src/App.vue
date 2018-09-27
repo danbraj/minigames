@@ -18,6 +18,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import './scss/base/variables';
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -46,12 +47,20 @@ li {
 }
 
 a {
-  color: #42b983;
+  font-weight: bold;
+  color: #2c3e50;
+  &.router-link-exact-active {
+    color: #42b983;
+  }
 }
 
+// a {
+//   color: $primary-color;
+// }
+
 .btn {
-  color: #42b983;
-  border: 1px #42b983 solid;
+  color: $primary-color;
+  border: 1px $primary-color solid;
   background: #fff;
   font-weight: 600;
   cursor: pointer;
@@ -63,7 +72,7 @@ a {
 
   &:hover {
     text-decoration:none;
-    background: #42b983;
+    background: $primary-color;
     color: #fff;
   }
 }
