@@ -1,0 +1,13 @@
+$primary-color  : #3A89C9;
+$secondary-color: #9CC4E4;
+
+$game-block-color: lighten($secondary-color, 10%);
+
+$content-width  : 900px;
+
+$card-width     : 120px;
+$card-height    : 160px;
+$front-color    : lighten($secondary-color, 15%);
+$front-border   : $secondary-color;
+$back-color     : $primary-color;
+$back-border    : darken($primary-color, 10%);

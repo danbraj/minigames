@@ -23,11 +23,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+$card-width: 120px !default;
+$card-height: 120px !default;
+$front-color: beige !default;
+$front-border: #ccc !default;
+$back-color: #cca4a3 !default;
+$back-border: #aaa !default;
+
 .card {
     box-sizing: border-box;
-    width: 100px;
-    height: 100px;
-    margin: 10px;
+    width: $card-width;
+    height: $card-height;
+    margin: 8px;
     position: relative;
     transition: transform 0.33s;
     transform-style: preserve-3d;
@@ -50,9 +58,9 @@ export default {
 
 .front {
     @extend %card-side;
-    border: 1px solid #ccc;
+    border: 2px solid $front-border;
     padding: 10px;
-    background: beige;
+    background: $front-color;
     transform: rotateY(180deg);//
 
     .matched > & {
@@ -67,8 +75,8 @@ export default {
 
 .back {
     @extend %card-side;
-    border: 1px solid #aaa;
-    background: #cca4a3;
+    border: 2px solid $back-border;
+    background: $back-color;
     cursor: pointer;
     //transform: rotateY(180deg);
 }

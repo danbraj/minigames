@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-    <h1><router-link to="/">Minigames</router-link></h1>
-    <h2>{{ msg }}</h2>
+    <router-link class="btn absolute" to="/">Lista minigierek</router-link>
     <router-view></router-view>
   </div>
 </template>
@@ -18,14 +17,14 @@ export default {
 </script>
 
 <style lang="scss">
-@import './scss/base/variables';
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  padding-top: 80px;
+  position: relative;
 }
 
 body {
@@ -47,21 +46,19 @@ li {
 }
 
 a {
+  text-decoration: none;
   font-weight: bold;
-  color: #2c3e50;
-  &.router-link-exact-active {
-    color: #42b983;
-  }
+  color: lighten(#2c3e50, 10%);
+  // &.router-link-exact-active {
+  //   color: #42b983;
+  // }
 }
-
-// a {
-//   color: $primary-color;
-// }
 
 .btn {
   color: $primary-color;
-  border: 1px $primary-color solid;
   background: #fff;
+  border: 2px $primary-color solid;
+  background: inherit;
   font-weight: 600;
   cursor: pointer;
   font-size: 1.2em;
@@ -75,5 +72,11 @@ a {
     background: $primary-color;
     color: #fff;
   }
+}
+
+.absolute {
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 </style>

@@ -1,10 +1,9 @@
 <template>
     <div class="container">
-        <h2>Memory</h2>
         <div class="board" v-bind:class="{ 'busy': isBusy }">
             <card v-for="(card, index) in cards" :key="index" :card="card" @click.native="flip(index)"></card>
+            <button v-if="cardsLeft == 0" class="btn btn--again" @click="restart">Jeszcze raz</button>
         </div>
-        <button v-if="cardsLeft == 0" class="btn" @click="restart">Jeszcze raz</button>
     </div>
 </template>
 
@@ -102,15 +101,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$content-width: 1200px !default;
+
 .container {
-  width: 800px;
+  width: $content-width;
   margin: 0 auto;
 }
 .board {
+  position: relative;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  width: 800px;
+  width: $content-width;
   perspective: 500px;
   margin: 20px 0;
 
@@ -118,7 +120,21 @@ export default {
     pointer-events: none;
   }
 }
-@media only screen and (max-width: 800px) {
+.btn--again {
+  margin: 0;
+  position: absolute;
+  background-color: #fff;
+  z-index: 1;
+  width: 200px;
+  height: 80px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  &:hover {
+    background-color: $primary-color;
+  }
+}
+@media only screen and (max-width: $content-width) {
   .container {
     width: 100%;
     margin: 0;
