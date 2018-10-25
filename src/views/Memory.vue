@@ -1,6 +1,7 @@
 <template>
     <div class="container">
         <div class="board" v-bind:class="{ 'busy': isBusy }">
+            <progress v-if="cooldown > 0" class="indicator" :value="cooldown" max="25"></progress>
             <card v-for="(card, index) in cards" :key="index" :card="card" @click.native="flip(index)"></card>
             <button v-if="cardsLeft == 0" class="btn btn--again" @click="restart">Jeszcze raz</button>
         </div>
@@ -47,7 +48,8 @@ export default {
       cardsLeft: -1,
       first: -1,
       count: -1,
-      isBusy: true
+      isBusy: true,
+      cooldown: 0
     };
   },
   methods: {
@@ -69,11 +71,24 @@ export default {
             this.cardsLeft -= 2;
             // if (this.cardsLeft == 0) { console.log('win'); }
           } else {
-            setTimeout(() => {
-              this.cards[a].isFlipped = false;
-              this.cards[b].isFlipped = false;
-              this.isBusy = false;
-            }, 2500);
+
+            const cool = () => {
+              if (this.cooldown >= 25) {
+                this.cards[a].isFlipped = false;
+                this.cards[b].isFlipped = false;
+                this.isBusy = false;
+                this.cooldown = 0;
+                clearInterval(interval);
+              } else {
+                this.cooldown++; 
+              }
+            } 
+            const interval = setInterval(cool, 100);
+            // setTimeout(() => {
+            //   this.cards[a].isFlipped = false;
+            //   this.cards[b].isFlipped = false;
+            //   this.isBusy = false;
+            // }, 2500);
           }
           this.count = -1;
           this.first = -1;
@@ -132,6 +147,23 @@ $content-width: 1200px !default;
   transform: translate(-50%, -50%);
   &:hover {
     background-color: $primary-color;
+  }
+}
+.indicator {
+  position: absolute;
+  top: -30px;
+  height: 14px;
+  width: 300px;
+  appearance: none;
+  &::-webkit-progress-bar {
+    background-color: #eee;
+    border-radius: 2px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.25) inset;
+  }
+  &::-webkit-progress-value {
+    background-color: lighten($primary-color, 25%);
+    // background-image: -webkit-linear-gradient(left, #f1617e, #a8d582);
+    // background-size: 100% 100%;
   }
 }
 @media only screen and (max-width: $content-width) {
