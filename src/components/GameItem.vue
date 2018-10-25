@@ -16,11 +16,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+$game-block-color: yellow !default;
+
 a {
     text-decoration: none;
     display: inline-block;
-    height: 100px;
-    width: 200px;
+    height: 160px;
+    width: 280px;
     margin: 10px;
 }
 
@@ -31,9 +34,9 @@ p {
 
 .game-block {
     display: inline-block;
-    width: 200px;
-    height: 100px;
-    background-color: #CDEBA7;
+    width: 100%;
+    height: 100%;
+    background-color: $game-block-color;
     position: relative;
 }
 
@@ -41,13 +44,13 @@ p {
     position: absolute;
     bottom: 8px;
     left: 8px;
-    font-size: 1.2em;
+    font-size: 1.4em;
 }
 
 .status {
     position: absolute;
     top: 8px;
     right: 8px;
-    font-size: 0.67em;
+    font-size: 0.76em;
 }
 </style>

@@ -1,6 +1,5 @@
 <template>
     <div class="container">
-        <h2>Match 3</h2>
         <div class="board" v-bind:class="{ loaded }">
             <item v-for="(e, idx) in items" :key="idx" :idx="idx" :item="e" v-if="e != null" v-bind:style="{ left: px(e.x*100), top: px(e.y*100) }" @click.native="del(idx)"></item>
         </div>
@@ -18,7 +17,11 @@ let itemsDefs = [
   'pear',
   'lemon',
   'nut',
-  'grape'
+  'grape',
+  'watermelon',
+  'cherry',
+  'plum',
+  'pineapple'
 ];
 
 const itemsTypes = itemsDefs.sort(() => 0.5 - Math.random()).slice(0, 5);

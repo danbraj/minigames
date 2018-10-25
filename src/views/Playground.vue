@@ -1,0 +1,5 @@
+<template>
+    <div class="container">
+        <p>Coming soon</p>
+    </div>
+</template>

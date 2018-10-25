@@ -1,20 +1,10 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
 import App from './App.vue'
-import Home from './pages/Home'
-import Memory from './pages/Memory'
-import Match3 from './pages/Match3'
+import router from './router'
 
-Vue.use(VueRouter);
-
-const routes = [
-  { path: '/', component: Home },
-  { path: '/memory', component: Memory },
-  { path: '/match3', component: Match3 },
-]
+Vue.config.productionTip = false
 
 new Vue({
-  el: '#app',
-  router: new VueRouter({routes, mode: 'history', base: '/minigames'}),
+  router,
   render: h => h(App)
-})
+}).$mount('#app')

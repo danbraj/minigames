@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import svg from './../assets/owoce.svg';
+import svg from '@/assets/owoce.svg';
 
 export default {
     props: [
@@ -23,8 +23,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+$card-width: 120px !default;
+$card-height: 120px !default;
+$front-color: beige !default;
+$front-border: #ccc !default;
+$back-color: #cca4a3 !default;
+$back-border: #aaa !default;
+
 .card {
-    margin: 5%;
+    box-sizing: border-box;
+    width: $card-width;
+    height: $card-height;
+    margin: 8px;
     position: relative;
     transition: transform 0.33s;
     transform-style: preserve-3d;
@@ -47,9 +58,9 @@ export default {
 
 .front {
     @extend %card-side;
-    border: 1px solid #ccc;
-    padding: 15px;
-    background: beige;
+    border: 2px solid $front-border;
+    padding: 10px;
+    background: $front-color;
     transform: rotateY(180deg);//
 
     .matched > & {
@@ -64,8 +75,8 @@ export default {
 
 .back {
     @extend %card-side;
-    border: 1px solid #aaa;
-    background: #cca4a3;
+    border: 2px solid $back-border;
+    background: $back-color;
     cursor: pointer;
     //transform: rotateY(180deg);
 }

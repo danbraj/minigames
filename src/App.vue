@@ -1,70 +1,70 @@
 <template>
-  <div id="app">
-    <h1><router-link to="/">Minigames</router-link></h1>
-    <h2>{{ msg }}</h2>
+  <div id="minigames">
+    <router-link class="btn top-right" to="/">Lista minigierek</router-link>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'app',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
-  }
+  name: 'minigames',
+  // data () {
+  //   return {
+  //     msg: 'Welcome to Your Vue.js App'
+  //   }
+  // }
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+$normal-font-size: 16px !default;
 
 body {
   margin: 0;
 }
 
-h1, h2 {
-  font-weight: normal;
-}
+#minigames {
+  font-family: Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  padding-top: 80px;
+  position: relative;
+  font-size: $normal-font-size;
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
+  .btn {
+    color: $primary-color;
+    background: #fff;
+    border: 2px $primary-color solid;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    margin: 10px;
+    padding: 14px 26px;
+    display: inline-block;
 
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
+    &:hover {
+      text-decoration:none;
+      background: $primary-color;
+      color: #fff;
+    }
+  }
 
-a {
-  color: #42b983;
-}
+  .top-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
 
-.btn {
-  color: #42b983;
-  border: 1px #42b983 solid;
-  background: #fff;
-  font-weight: 600;
-  cursor: pointer;
-  font-size: 1.2em;
-  text-transform: uppercase;
-  margin: 10px;
-  padding: 14px 26px;
-  display: inline-block;
-
-  &:hover {
-    text-decoration:none;
-    background: #42b983;
-    color: #fff;
+  a {
+    text-decoration: none;
+    font-weight: bold;
+    color: lighten(#2c3e50, 10%);
+    // &.router-link-exact-active {
+    //   color: #42b983;
+    // }
   }
 }
 </style>

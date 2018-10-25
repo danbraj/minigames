@@ -1,17 +1,17 @@
 <template>
     <div class="container">
-        <h2>Memory</h2>
         <div class="board" v-bind:class="{ 'busy': isBusy }">
+            <progress v-if="cooldown > 0" class="indicator" :value="cooldown" max="25"></progress>
             <card v-for="(card, index) in cards" :key="index" :card="card" @click.native="flip(index)"></card>
+            <button v-if="cardsLeft == 0" class="btn btn--again" @click="restart">Jeszcze raz</button>
         </div>
-        <button v-if="cardsLeft == 0" class="btn" @click="restart">Jeszcze raz</button>
     </div>
 </template>
 
 <script>
-import Card from './../components/Card';
+import Card from '@/components/Card';
 
-let cards = [
+const cardsDefs = [
   'apple',
   'banana',
   'blueberries',
@@ -19,7 +19,11 @@ let cards = [
   'pear',
   'lemon',
   'nut',
-  'grape'
+  'grape',
+  'watermelon',
+  'cherry',
+  'plum',
+  'pineapple'
 ];
 
 export default {
@@ -27,8 +31,8 @@ export default {
     card: Card
   },
   created() {
-    this.cards = cards
-      .concat(cards)
+    this.cards = cardsDefs
+      .concat(cardsDefs)
       .sort(() => 0.5 - Math.random())
       .map(x => {
         return { handle: x, isFlipped: false, isMatched: false };
@@ -39,12 +43,13 @@ export default {
   },
   data() {
     return {
-      cards,
+      cards: [],
       cardsCount: -1,
       cardsLeft: -1,
       first: -1,
       count: -1,
-      isBusy: true
+      isBusy: true,
+      cooldown: 0
     };
   },
   methods: {
@@ -66,11 +71,24 @@ export default {
             this.cardsLeft -= 2;
             // if (this.cardsLeft == 0) { console.log('win'); }
           } else {
-            setTimeout(() => {
-              this.cards[a].isFlipped = false;
-              this.cards[b].isFlipped = false;
-              this.isBusy = false;
-            }, 2500);
+
+            const cool = () => {
+              if (this.cooldown >= 25) {
+                this.cards[a].isFlipped = false;
+                this.cards[b].isFlipped = false;
+                this.isBusy = false;
+                this.cooldown = 0;
+                clearInterval(interval);
+              } else {
+                this.cooldown++; 
+              }
+            } 
+            const interval = setInterval(cool, 100);
+            // setTimeout(() => {
+            //   this.cards[a].isFlipped = false;
+            //   this.cards[b].isFlipped = false;
+            //   this.isBusy = false;
+            // }, 2500);
           }
           this.count = -1;
           this.first = -1;
@@ -98,15 +116,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$content-width: 1200px !default;
+
 .container {
-  width: 600px;
+  width: $content-width;
   margin: 0 auto;
 }
 .board {
-  display: grid;
-  width: 600px;
-  height: 600px;
-  grid-template: repeat(4, 1fr) / repeat(4, 1fr);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: $content-width;
   perspective: 500px;
   margin: 20px 0;
 
@@ -114,14 +135,44 @@ export default {
     pointer-events: none;
   }
 }
-@media only screen and (max-width: 600px) {
+.btn--again {
+  margin: 0;
+  position: absolute;
+  background-color: #fff;
+  z-index: 1;
+  width: 200px;
+  height: 80px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  &:hover {
+    background-color: $primary-color;
+  }
+}
+.indicator {
+  position: absolute;
+  top: -30px;
+  height: 14px;
+  width: 300px;
+  appearance: none;
+  &::-webkit-progress-bar {
+    background-color: #eee;
+    border-radius: 2px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.25) inset;
+  }
+  &::-webkit-progress-value {
+    background-color: lighten($primary-color, 25%);
+    // background-image: -webkit-linear-gradient(left, #f1617e, #a8d582);
+    // background-size: 100% 100%;
+  }
+}
+@media only screen and (max-width: $content-width) {
   .container {
     width: 100%;
     margin: 0;
   }
   .board {
     width: 100vw;
-    height: 100vw;
   }
 }
 </style>
