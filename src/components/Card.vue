@@ -1,7 +1,7 @@
 <template>
     <div class="card" v-bind:class="{ 'flipped': card.isFlipped, 'matched': card.isMatched }">
         <svg class="front">
-            <use :href="getPicUrl(card.handle)"></use>
+            <use :href="svgUrl"></use>
         </svg>
         <div class="back"></div>
     </div>
@@ -14,9 +14,9 @@ export default {
     props: [
         'card'
     ],
-    methods: {
-        getPicUrl(handle) {
-            return `${svg}#${handle}`;
+    computed: {
+        svgUrl() {
+            return `${svg}#${this.card.handle}`;
         }
     }
 }
@@ -35,10 +35,14 @@ $back-border: #aaa !default;
     box-sizing: border-box;
     width: $card-width;
     height: $card-height;
-    margin: 8px;
+    margin: 6px;
     position: relative;
     transition: transform 0.33s;
     transform-style: preserve-3d;
+
+    &.smaller {
+        height: $card-width;
+    }
 
     &.flipped {
         transform: rotateY(180deg);
@@ -59,7 +63,7 @@ $back-border: #aaa !default;
 .front {
     @extend %card-side;
     border: 2px solid $front-border;
-    padding: 10px;
+    padding: 6px;
     background: $front-color;
     transform: rotateY(180deg);//
 
@@ -78,6 +82,18 @@ $back-border: #aaa !default;
     border: 2px solid $back-border;
     background: $back-color;
     cursor: pointer;
-    //transform: rotateY(180deg);
+    //transform: rotateY(180deg);//
+
+    animation: fadeIn 0.67s cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    animation-fill-mode: forwards;  
+    opacity: 0;
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
 }
 </style>
