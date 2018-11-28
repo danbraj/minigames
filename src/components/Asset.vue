@@ -13,7 +13,7 @@ export default {
     ],
     computed: {
         svgUrl() {
-            return `${svg}#${this.name}`;
+            return this.name ? `${svg}#${this.name}` : null;
         }
     }
 }

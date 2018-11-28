@@ -4,17 +4,15 @@
     <div class="board" v-bind:class="{ 'busy': isBusy }">
         
       <div class="screen">
-        <asset class="picture" :name="solution[0]"></asset>
-        <asset class="picture" :name="solution[1]"></asset>
-        <asset class="picture" :name="solution[2]"></asset>
+        <asset class="picture" :name="actual"></asset>
       </div>
 
       <ul>
-        <li v-for="index in solutionCount" :key="index">{{ index }}</li>
+        <li class="order" v-for="index in solutionCount" :key="index" v-bind:class="{ 'active': index == order, 'good': chosenSolution[index-1] == solution[index-1] }">{{ index }}</li>
       </ul>
 
-      <ul>
-        <li v-for="(asset, index) in answers" :key="index">
+      <ul class="answers">
+        <li class="answer" v-for="(asset, index) in answers" :key="index" v-on:click="choose(asset)">
           <asset :name="asset"></asset>
         </li>
       </ul>
@@ -41,25 +39,49 @@ export default {
   data() {
     return {
       level: 1,
+      answers: [],
+      actual: null,
       solution: [],
       solutionCount: 0,
-      answers: [],
+      chosenSolution: [],
       isBusy: false,
       cooldown: 0,
+      order: 0,
     };
   },
   created() {
-    this.solutionCount = 3;
-    const assets = svgHardDefs
+    this.solutionCount = 4;
+    this.answers = svgHardDefs
       .sort(() => 0.5 - Math.random());
-
-    this.answers = assets;
-    this.solution = [].concat(assets)
-      .sort(() => 0.5 - Math.random())
-      .slice(0, this.solutionCount);
+    this.shuffle();
   },
   methods: {
-      
+    shuffle() {
+      this.solution = [].concat(this.answers)
+        .sort(() => 0.5 - Math.random())
+        .slice(0, this.solutionCount);
+      this.chosenSolution = [];
+
+      this.showSolutionItem();
+    },
+    showSolutionItem() {
+      if (this.order > this.solutionCount) {
+        this.order = 0;
+        this.actual = null;
+        return;
+      }
+      setTimeout(() => {
+        this.actual = this.solution[this.order];
+        this.order++;
+        this.showSolutionItem();
+      }, 2000);
+    },
+    choose(asset) {
+      this.chosenSolution.push(asset);
+      if (this.solutionCount == this.chosenSolution.length) {
+        this.shuffle();
+      }
+    }
   }
 };
 </script>
@@ -85,6 +107,45 @@ ul {
 @media only screen and (max-width: $content-width) {
   .board {
     width: 100%;
+  }
+}
+.picture {
+  width: 260px;
+  height: 260px;
+  margin: 20px;
+}
+.order {
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  line-height: 32px;
+  background: #ccc;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 6px;
+  font-weight: 700;
+
+  &.active {
+    background: $primary-color;
+    color: #fff;
+  }
+
+  &.good {
+    background: green;
+    color: #fff;
+  }
+}
+.answers {
+  display: flex;
+  justify-content: center;
+}
+.answer {
+  margin: 6px;
+  border: 2px solid $secondary-color;
+  &:hover {
+    cursor: pointer;
+    border-color: $primary-color;
+    background: $secondary-color;
   }
 }
 </style>
