@@ -32,6 +32,12 @@ export default {
                 //     status: 'Inprogress'
                 // },
                 {
+                    name: 'repeat',
+                    title: 'Repeat Game',
+                    description: 'Repeat game',
+                    status: 'Inprogress'
+                },
+                {
                     name: 'playground',
                     title: 'Playground',
                     description: '..',

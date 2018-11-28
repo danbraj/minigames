@@ -23,6 +23,11 @@ export default new Router({
       component: () => import(/* webpackChunkName: "memory" */ './views/Memory.vue')
     },
     {
+      path: '/repeat',
+      name: 'repeat',
+      component: () => import(/* webpackChunkName: "repeat" */ './views/Repeat.vue')
+    },
+    {
       path: '/playground',
       name: 'playground',
       component: () => import(/* webpackChunkName: "playground" */ './views/Playground.vue')
