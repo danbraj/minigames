@@ -5,10 +5,11 @@
         
       <div class="screen">
         <asset class="picture" :name="actual"></asset>
+        <span v-if="resultText" class="result" v-bind:class="resultClass" v-text="resultText"></span>
       </div>
 
       <ul>
-        <li class="order" v-for="index in solutionCount" :key="index" v-bind:class="{ 'active': index == order, 'good': chosenSolution[index-1] == solution[index-1] }">{{ index }}</li>
+        <li class="order" v-for="index in solutionCount" :key="index" v-bind:class="{ 'active': index == order, 'good': solutionCorrectness[index-1] }">{{ index }}</li>
       </ul>
 
       <ul class="answers">
@@ -23,7 +24,19 @@
 <script>
 import Asset from '@/components/Asset';
 
-const svgHardDefs = [
+const svgDefs = [
+  'apple',
+  'banana',
+  'blueberries',
+  'strawberry',
+  'pear',
+  'lemon',
+  'nut',
+  'grape',
+  'watermelon',
+  'cherry',
+  'plum',
+  'pineapple',
   'hblueberries',
   'happle',
   'hnuts',
@@ -38,29 +51,45 @@ export default {
   },
   data() {
     return {
+      counter: 0,
       level: 1,
       answers: [],
       actual: null,
       solution: [],
       solutionCount: 0,
-      chosenSolution: [],
+      solutionCorrectness: [],
       isBusy: false,
-      cooldown: 0,
       order: 0,
+      answerOrder: 0,
+      resultText: null,
+      resultClass: {
+        'correct': false,
+        'mistake': false
+      }
     };
   },
   created() {
-    this.solutionCount = 4;
-    this.answers = svgHardDefs
-      .sort(() => 0.5 - Math.random());
+    this.solutionCount = 3;
+    this.answers = svgDefs
+      .sort(() => 0.5 - Math.random())
+      .slice(0, 6);
     this.shuffle();
   },
   methods: {
     shuffle() {
-      this.solution = [].concat(this.answers)
+      this.isBusy = true;
+      if (++this.counter % 5 == 0) {
+        this.answers = svgDefs
         .sort(() => 0.5 - Math.random())
-        .slice(0, this.solutionCount);
+        .slice(0, 6);
+      }
+      this.solutionCount = this.level + 2;
       this.chosenSolution = [];
+      this.solution = [];
+      for (let i = 0; i < this.solutionCount; i++) {
+        const index = Math.floor(Math.random() * this.answers.length);
+        this.solution.push(this.answers[index]);
+      }
 
       this.showSolutionItem();
     },
@@ -68,17 +97,49 @@ export default {
       if (this.order > this.solutionCount) {
         this.order = 0;
         this.actual = null;
+        this.isBusy = false;
         return;
       }
       setTimeout(() => {
         this.actual = this.solution[this.order];
         this.order++;
         this.showSolutionItem();
-      }, 2000);
+      }, 1500);
     },
     choose(asset) {
-      this.chosenSolution.push(asset);
-      if (this.solutionCount == this.chosenSolution.length) {
+
+      if (asset == this.solution[this.answerOrder]) {
+        this.solutionCorrectness.push(true);
+        this.answerOrder++;
+        if (this.solutionCount == this.solutionCorrectness.length) {
+
+          this.isBusy = true;
+          this.resultClass = {
+            'correct': true,
+            'mistake': false
+          }
+          this.resultText = 'Bardzo dobrze';
+          this.level++;
+          setTimeout(() => {
+            this.resultText = null;
+            this.answerOrder = 0;
+            this.solutionCorrectness = [];
+            this.shuffle();
+          }, 1200);
+        }
+      } else {
+
+        this.resultClass = {
+          'correct': false,
+          'mistake': true
+        }
+        this.resultText = 'Pomyłka';
+        this.level = --this.level >= 1 ? this.level : 1;
+        setTimeout(() => {
+          this.resultText = null;
+        }, 1200);
+        this.answerOrder = 0;
+        this.solutionCorrectness = [];
         this.shuffle();
       }
     }
@@ -131,12 +192,13 @@ ul {
   }
 
   &.good {
-    background: green;
+    background: #507d2a;
     color: #fff;
   }
 }
 .answers {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
 }
 .answer {
@@ -147,5 +209,26 @@ ul {
     border-color: $primary-color;
     background: $secondary-color;
   }
+}
+.screen {
+  position: relative;
+}
+.result {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2em;
+  font-style: italic;
+  font-weight: 700;
+  color: #fff;
+  padding: 10px 16px;
+  background: $primary-color;
+}
+.correct {
+  background: #507d2a;
+}
+.mistake {
+  background: #dc143c;
 }
 </style>

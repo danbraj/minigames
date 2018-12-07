@@ -35,14 +35,14 @@ export default {
                     name: 'repeat',
                     title: 'Repeat Game',
                     description: 'Repeat game',
-                    status: 'Inprogress'
+                    status: ''
                 },
-                {
-                    name: 'playground',
-                    title: 'Playground',
-                    description: '..',
-                    status: 'Coming soon'
-                }
+                // {
+                //     name: 'playground',
+                //     title: 'Playground',
+                //     description: '..',
+                //     status: 'Coming soon'
+                // }
             ]
         }
     }

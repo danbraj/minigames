@@ -27,11 +27,11 @@ export default new Router({
       name: 'repeat',
       component: () => import(/* webpackChunkName: "repeat" */ './views/Repeat.vue')
     },
-    {
-      path: '/playground',
-      name: 'playground',
-      component: () => import(/* webpackChunkName: "playground" */ './views/Playground.vue')
-    },
+    // {
+    //   path: '/playground',
+    //   name: 'playground',
+    //   component: () => import(/* webpackChunkName: "playground" */ './views/Playground.vue')
+    // },
     // {
     //   path: '/match3',
     //   name: 'match3',
