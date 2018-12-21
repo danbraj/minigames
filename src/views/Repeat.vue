@@ -25,25 +25,10 @@
 import Asset from '@/components/Asset';
 
 const svgDefs = [
-  'apple',
-  'banana',
-  'blueberries',
-  'strawberry',
-  'pear',
-  'lemon',
-  'nut',
-  'grape',
-  'watermelon',
-  'cherry',
-  'plum',
-  'pineapple',
-  'hblueberries',
-  'happle',
-  'hnuts',
-  'hcherries',
-  'hgrape',
-  'hpineapple'
-]
+   0,  1,  2,  3,  4,  5,
+   6,  7,  8,  9, 10, 11,
+  12, 13, 14, 15, 16, 17
+];
 
 export default {
   components: {

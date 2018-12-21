@@ -19,28 +19,12 @@
 import Card from '@/components/Card';
 
 const svgDefs = [
-  'apple',
-  'banana',
-  'blueberries',
-  'strawberry',
-  'pear',
-  'lemon',
-  'nut',
-  'grape',
-  'watermelon',
-  'cherry',
-  'plum',
-  'pineapple'
+  0,  1,  2,  3,  4,  5,
+  6,  7,  8,  9, 10, 11
 ];
-
 const svgHardDefs = [
-  'hblueberries',
-  'happle',
-  'hnuts',
-  'hcherries',
-  'hgrape',
-  'hpineapple'
-]
+  12, 13, 14, 15, 16, 17
+];
 
 // easy - 6, medium - 12, hard - 18
 const difficulty = [6, 12, 18];

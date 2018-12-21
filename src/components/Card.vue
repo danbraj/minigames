@@ -8,15 +8,13 @@
 </template>
 
 <script>
-import svg from '@/assets/owoce.svg';
-
 export default {
     props: [
         'card'
     ],
     computed: {
         svgUrl() {
-            return `${svg}#${this.card.handle}`;
+            return `${this.$store.getters.currentAssetsUrl}#${this.card.handle}`;
         }
     }
 }

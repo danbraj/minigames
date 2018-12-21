@@ -7,8 +7,12 @@
 
 <script>
 import Games from '@/components/Games';
+import fruits from '@/assets/owoce.svg';
 
 export default {
+  created() {
+    this.$store.commit('setAssetsUrl', fruits);
+  },
   components: {
     'games': Games
   },

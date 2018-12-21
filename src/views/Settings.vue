@@ -3,11 +3,11 @@
         <h2>Ustawienia</h2>
         <h3>Assety</h3>
         <div class="assets">
-            <div class="asset">
-                <span v-text="assets[0].name"></span>
-                <div class="symbols">
-                    <svg class="symbol" v-for="(symbol, index) in assets[0].symbols" :key="index">
-                        <use :href="svgUrl(assets[0].url, symbol)"></use>
+            <div class="asset" v-for="(asset, idx) in assets" :key="idx">
+                <span class="title" v-text="asset.name"></span>
+                <div class="symbols" :class="{ 'active': $store.getters.currentAssetsUrl == asset.url }" v-on:click="chooseAssets(asset.url)">
+                    <svg class="symbol" v-for="index in asset.symbols" :key="index">
+                        <use :href="svgUrl(asset.url, index-1)"></use>
                     </svg>
                 </div>
             </div>
@@ -17,34 +17,22 @@
 
 <script>
 import fruitsAssets from '@/assets/owoce.svg';
+import figuresAssets from '@/assets/figury.svg';
 
 export default {
     data() {
         return {
+            activeAsset: null,
             assets: [
                 {
                     name: 'Owoce',
                     url: fruitsAssets,
-                    symbols: [
-                        'apple',
-                        'banana',
-                        'blueberries',
-                        'strawberry',
-                        'pear',
-                        'lemon',
-                        'nut',
-                        'grape',
-                        'watermelon',
-                        'cherry',
-                        'plum',
-                        'pineapple',
-                        'hblueberries',
-                        'happle',
-                        'hnuts',
-                        'hcherries',
-                        'hgrape',
-                        'hpineapple'
-                    ]
+                    symbols: 18
+                },
+                {
+                    name: 'Figury',
+                    url: figuresAssets,
+                    symbols: 18
                 }
             ]
         }
@@ -52,14 +40,39 @@ export default {
     methods: {
         svgUrl(url, symbol) {
             return `${url}#${symbol}`;
+        },
+        chooseAssets(assetUrl) {
+            if (assetUrl != this.$store.getters.currentAssetsUrl) {
+                this.$store.commit('setAssetsUrl', assetUrl);
+            }
         }
     }
 }
 </script>
 
 <style lang="scss" scoped>
+.title {
+    font-weight: 700;
+    line-height: 3em;
+}
 .symbol {
-    width: 100px;
-    height: 100px;
+    width: 70px;
+    height: 70px;
+
+    &s {
+        &:hover {
+            background-color: #fcf4a3;
+            cursor: pointer;
+        }
+    }
+}
+.active {
+    background-color: $secondary-color;
+}
+.assets {
+    display: flex;
+    @media only screen and (max-width: 460px) {
+        flex-flow: column;
+    }
 }
 </style>

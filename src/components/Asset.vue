@@ -5,15 +5,13 @@
 </template>
 
 <script>
-import svg from '@/assets/owoce.svg';
-
 export default {
     props: [
         'name'
     ],
     computed: {
         svgUrl() {
-            return this.name ? `${svg}#${this.name}` : null;
+            return `${this.$store.getters.currentAssetsUrl}#${this.name}`;
         }
     }
 }
