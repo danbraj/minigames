@@ -1,27 +1,23 @@
 <template>
-    <div class="card" v-bind:class="{ 'flipped': card.isFlipped, 'matched': card.isMatched }">
-        <svg class="front">
-            <use :href="svgUrl"></use>
-        </svg>
-        <div class="back"></div>
+    <div class="card" v-bind:class="{ 'card--flipped': card.isFlipped, 'card--matched': card.isMatched }">
+        <Icon class="card__front" :id="card.handle"/>
+        <div class="card__back"></div>
     </div>
 </template>
 
 <script>
+import Icon from '@/components/Icon';
 export default {
-    props: [
-        'card'
-    ],
-    computed: {
-        svgUrl() {
-            return `${this.$store.getters.currentAssetsUrl}#${this.card.handle}`;
-        }
-    }
+    components: {
+        Icon
+    },
+    props: {
+        card: Object
+    },
 }
 </script>
 
-<style lang="scss" scoped>
-
+<style scoped lang="scss">
 $card-width: 120px !default;
 $card-height: 120px !default;
 $front-color: beige !default;
@@ -36,17 +32,23 @@ $back-border: #aaa !default;
     margin: 6px;
     position: relative;
     transition: transform 0.33s;
-    transform-style: preserve-3d;
-
-    &.smaller {
-        height: $card-width;
-    }
-
-    &.flipped {
-        transform: rotateY(180deg);
+    transform-style: preserve-3d;  
+}
+.smaller {
+    height: $card-width;
+}
+.card--flipped {
+    transform: rotateY(180deg);
+}
+.card--matched {
+    > .card__front {
+        @keyframes out {
+            from {opacity: 1;}
+            to {opacity: 0.2;}
+        }
+        animation: out 1s normal forwards ease-in-out;
     }
 }
-
 %card-side {
     box-sizing: border-box;
     position: absolute;
@@ -57,31 +59,19 @@ $back-border: #aaa !default;
     backface-visibility: hidden;
     border-radius: 12px;
 }
-
-.front {
+.card__front {
     @extend %card-side;
     border: 2px solid $front-border;
     padding: 6px;
     background: $front-color;
     transform: rotateY(180deg);//
-
-    .matched > & {
-        animation: out 1s normal forwards ease-in-out;
-    }
-
-    @keyframes out {
-        from {opacity: 1;}
-        to {opacity: 0.2;}
-    }
 }
-
-.back {
+.card__back {
     @extend %card-side;
     border: 2px solid $back-border;
     background: $back-color;
     cursor: pointer;
     //transform: rotateY(180deg);//
-
     animation: fadeIn 0.67s cubic-bezier(0.215, 0.610, 0.355, 1.000);
     animation-fill-mode: forwards;  
     opacity: 0;

@@ -1,9 +1,9 @@
 module.exports = {
-    baseUrl: './',
+    publicPath: './',
     css: {
         loaderOptions: {
             sass: {
-                data: `@import "@/scss/main.scss";`
+                data: `@import "@/scss/app.scss";`
             }
         }
     }

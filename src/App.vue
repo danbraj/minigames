@@ -1,59 +1,45 @@
 <template>
-  <div id="minigames" class="minigames">
-    <games></games>
-    <router-view class="panel"></router-view>
+  <div id="app">
+    <div id="nav">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link> |
+      <router-link to="/settings">Settings</router-link>
+    </div>
+    <router-view/>
   </div>
 </template>
 
 <script>
-import Games from '@/components/Games';
 import fruits from '@/assets/owoce.svg';
-
 export default {
   created() {
     this.$store.commit('setAssetsUrl', fruits);
   },
-  components: {
-    'games': Games
-  },
-  name: 'minigames'
 }
 </script>
 
 <style lang="scss">
-$content-width: 1200px !default;
-$normal-font-size: 16px !default;
-
+$primary-color      : blue !default;
+html {
+  font: $prime-font;
+}
 body {
   margin: 0;
+  padding: 0;
 }
-
-.minigames {
-  
-  font-family: Helvetica, sans-serif;
+#app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  //padding-top: 80px;
-  position: relative;
-  font-size: $normal-font-size;
-
+  color: $primary-color;
+}
+#nav {
+  padding: 30px;
   a {
-    text-decoration: none;
     font-weight: bold;
-  }
-
-  .panel {
-    width: $content-width;
-    margin: 0 auto;
-    position: relative;
-  }
-
-  @media only screen and (max-width: $content-width) {
-    .panel {
-      width: 100%;
-      margin: 0;
+    color: #2c3e50;
+    &.router-link-exact-active {
+      color: #42b983;
     }
   }
 }

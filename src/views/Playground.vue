@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
-        <p>Coming soon</p>
+    <div class="playground">
+        <h1>This is a playground page</h1>
     </div>
 </template>

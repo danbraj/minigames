@@ -1,22 +1,24 @@
 <template>
-    <div>
-        <div class="difficulty-panel">
-          <ul>
-            <li><a v-on:click="setDifficulty(0)">Łatwy</a></li>
-            <li><a v-on:click="setDifficulty(1)">Średni</a></li>
-            <li><a v-on:click="setDifficulty(2)">Trudny</a></li>
-          </ul>
-        </div>
-        <div class="board" v-bind:class="{ 'busy': isBusy }">
-            <progress v-if="cooldown > 0" class="indicator" :value="cooldown" max="25"></progress>
-            <card v-for="(card, index) in cards" :key="index" :card="card" @click.native="flip(index)" v-bind:class="{ 'smaller': isHard }"></card>
-            <button v-if="cardsLeft == 0" class="btn--again" @click="restart">Jeszcze raz</button>
-        </div>
+  <div>
+    <Navbar title="Memory"/>
+    <div class="difficulty-panel">
+      <ul>
+        <li><a v-on:click="setDifficulty(0)">Łatwy</a></li>
+        <li><a v-on:click="setDifficulty(1)">Średni</a></li>
+        <li><a v-on:click="setDifficulty(2)">Trudny</a></li>
+      </ul>
     </div>
+    <div class="board" v-bind:class="{ 'busy': isBusy }">
+        <progress v-if="cooldown > 0" class="indicator" :value="cooldown" max="25"></progress>
+        <card v-for="(card, index) in cards" :key="index" :card="card" @click.native="flip(index)" v-bind:class="{ 'smaller': isHard }"></card>
+        <button v-if="cardsLeft == 0" class="btn--again" @click="restart">Jeszcze raz</button>
+    </div>
+  </div>
 </template>
 
 <script>
 import Card from '@/components/Card';
+import Navbar from '@/components/Navbar';
 
 const svgDefs = [
   0,  1,  2,  3,  4,  5,
@@ -31,7 +33,7 @@ const difficulty = [6, 12, 18];
 
 export default {
   components: {
-    card: Card
+    Navbar, Card
   },
   data() {
     return {
