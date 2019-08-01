@@ -1,4 +1,4 @@
-# mg
+# Minigames
 
 ## Project setup
 ```
