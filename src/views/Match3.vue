@@ -7,24 +7,14 @@
 </template>
 
 <script>
-import Item from './../components/Item'
+import Item from '@/components/Item'
 
-let itemsDefs = [
-  'apple',
-  'banana',
-  'blueberries',
-  'strawberry',
-  'pear',
-  'lemon',
-  'nut',
-  'grape',
-  'watermelon',
-  'cherry',
-  'plum',
-  'pineapple'
+const svgDefs = [
+  0,  1,  2,  3,  4,  5,
+  6,  7,  8,  9, 10, 11
 ];
 
-const itemsTypes = itemsDefs.sort(() => 0.5 - Math.random()).slice(0, 5);
+const itemsTypes = svgDefs.sort(() => 0.5 - Math.random()).slice(0, 5);
 const count = itemsTypes.length;
 
 export default {

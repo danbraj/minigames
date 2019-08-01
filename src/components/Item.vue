@@ -8,15 +8,13 @@
 </template>
 
 <script>
-import svg from './../assets/owoce.svg';
-
 export default {
     props: [
         'item', 'idx'
     ],
     methods: {
         getPicUrl(handle) {
-            return `${svg}#${handle}`;
+            return `${this.$store.getters.currentAssetsUrl}#${handle}`;
         }
     }
 }

@@ -1,8 +1,8 @@
 <template>
     <router-link :to="game.name">
-        <div class="game-block">
-            <p class="title">{{ game.title }}</p>
-            <span class="status" v-if="game.status != ''">{{ game.status }}</span>
+        <div class="game-item">
+            <span class="title">{{ game.title }}</span>
+            <span class="status">{{ game.status }}</span>
         </div>
     </router-link>
 </template>
@@ -16,41 +16,49 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 $game-block-color: yellow !default;
 
 a {
+    box-sizing: border-box;
     text-decoration: none;
+    font-weight: bold;
+    color: lighten(#2c3e50, 10%);
     display: inline-block;
-    height: 160px;
+    height: 60px;
     width: 280px;
     margin: 10px;
+    border: 6px solid $game-block-color;
+    background-color: $game-block-color;
+
+    &:hover {
+        border-color: $secondary-color;
+    }
+
+    &.router-link-active {
+        border-color: $secondary-color;
+        background: $secondary-color;
+    }
 }
 
-p {
-    margin: 0;
-    padding: 0;
-}
-
-.game-block {
+.game-item {
     display: inline-block;
     width: 100%;
     height: 100%;
-    background-color: $game-block-color;
+    
     position: relative;
 }
 
 .title {
     position: absolute;
-    bottom: 8px;
-    left: 8px;
+    bottom: 4px;
+    left: 4px;
     font-size: 1.4em;
 }
 
 .status {
     position: absolute;
-    top: 8px;
-    right: 8px;
+    top: 4px;
+    right: 4px;
     font-size: 0.76em;
 }
 </style>

@@ -1,9 +1,16 @@
 <template>
-    <div class="container">
+    <div>
+        <div class="difficulty-panel">
+          <ul>
+            <li><a v-on:click="setDifficulty(0)">Łatwy</a></li>
+            <li><a v-on:click="setDifficulty(1)">Średni</a></li>
+            <li><a v-on:click="setDifficulty(2)">Trudny</a></li>
+          </ul>
+        </div>
         <div class="board" v-bind:class="{ 'busy': isBusy }">
             <progress v-if="cooldown > 0" class="indicator" :value="cooldown" max="25"></progress>
-            <card v-for="(card, index) in cards" :key="index" :card="card" @click.native="flip(index)"></card>
-            <button v-if="cardsLeft == 0" class="btn btn--again" @click="restart">Jeszcze raz</button>
+            <card v-for="(card, index) in cards" :key="index" :card="card" @click.native="flip(index)" v-bind:class="{ 'smaller': isHard }"></card>
+            <button v-if="cardsLeft == 0" class="btn--again" @click="restart">Jeszcze raz</button>
         </div>
     </div>
 </template>
@@ -11,46 +18,39 @@
 <script>
 import Card from '@/components/Card';
 
-const cardsDefs = [
-  'apple',
-  'banana',
-  'blueberries',
-  'strawberry',
-  'pear',
-  'lemon',
-  'nut',
-  'grape',
-  'watermelon',
-  'cherry',
-  'plum',
-  'pineapple'
+const svgDefs = [
+  0,  1,  2,  3,  4,  5,
+  6,  7,  8,  9, 10, 11
 ];
+const svgHardDefs = [
+  12, 13, 14, 15, 16, 17
+];
+
+// easy - 6, medium - 12, hard - 18
+const difficulty = [6, 12, 18];
 
 export default {
   components: {
     card: Card
   },
-  created() {
-    this.cards = cardsDefs
-      .concat(cardsDefs)
-      .sort(() => 0.5 - Math.random())
-      .map(x => {
-        return { handle: x, isFlipped: false, isMatched: false };
-      });
-    this.cardsCount = this.cards.length;
-    this.cardsLeft = this.cardsCount;
-    this.isBusy = false;
-  },
   data() {
     return {
+      difficulty: 0,
       cards: [],
       cardsCount: -1,
       cardsLeft: -1,
       first: -1,
       count: -1,
       isBusy: true,
-      cooldown: 0
+      cooldown: 0,
+      isHard: false
     };
+  },
+  created() {
+    this.shuffle();
+    this.cardsCount = difficulty[this.difficulty] * 2;
+    this.cardsLeft = this.cardsCount;
+    this.isBusy = false;
   },
   methods: {
     flip(idx) {
@@ -102,13 +102,44 @@ export default {
           el.isFlipped = false;
           el.isMatched = false;
         });
-        this.cardsLeft = this.cardsCount;
         this.count = -1;
         this.first = -1;
+        //this.cards = null;
         setTimeout(() => {
-          this.cards.sort(() => 0.5 - Math.random());
-          this.isBusy = false;
-        }, 1000);
+          this.shuffle();
+        }, 670);
+        this.cardsCount = difficulty[this.difficulty] * 2;
+        this.cardsLeft = this.cardsCount;
+        this.isBusy = false;
+      }
+    },
+    shuffle() {
+      const defs = svgDefs;
+
+      let cardsTypes;
+      if (this.difficulty == 2) {
+        cardsTypes = defs.concat(svgHardDefs);
+        this.isHard = true;
+      }
+      else {
+        cardsTypes = defs
+          .sort(() => 0.5 - Math.random())
+          .slice(0, difficulty[this.difficulty]);
+        this.isHard = false;
+      }
+      
+      this.cards = cardsTypes
+        .concat(cardsTypes)
+        .sort(() => 0.5 - Math.random())
+        .map(symbol => {
+          return { handle: symbol, isFlipped: false, isMatched: false };
+        });
+    },
+    setDifficulty(d) {
+      if (!this.isBusy) {
+        this.difficulty = (d >= 0 && d < 3 ? d : 0);
+        this.restart();
+        this.cards = null;
       }
     }
   }
@@ -116,9 +147,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$content-width: 1200px !default;
+a {
+  cursor: pointer;
+  &:hover {
+    color: lighten($color: #3e5871, $amount: 30%);
+  }
+}
 
-.container {
+.minigame {
   width: $content-width;
   margin: 0 auto;
 }
@@ -129,16 +165,29 @@ $content-width: 1200px !default;
   flex-wrap: wrap;
   width: $content-width;
   perspective: 500px;
-  margin: 20px 0;
+  margin: 40px 0;
 
   &.busy {
     pointer-events: none;
   }
+
+  @media only screen and (min-width: 1500px) {
+    margin: 0;
+  }
 }
 .btn--again {
   margin: 0;
+  color: $primary-color;
+  background: #fff;
+  border: 2px $primary-color solid;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1.2em;
+  text-transform: uppercase;
   position: absolute;
   background-color: #fff;
+  padding: 14px 26px;
+  display: inline-block;
   z-index: 1;
   width: 200px;
   height: 80px;
@@ -146,14 +195,17 @@ $content-width: 1200px !default;
   top: 50%;
   transform: translate(-50%, -50%);
   &:hover {
-    background-color: $primary-color;
+    text-decoration:none;
+      background: $primary-color;
+      color: #fff;
   }
 }
+
 .indicator {
   position: absolute;
-  top: -30px;
+  top: -25px;
   height: 14px;
-  width: 300px;
+  width: 260px;
   appearance: none;
   &::-webkit-progress-bar {
     background-color: #eee;
@@ -167,12 +219,32 @@ $content-width: 1200px !default;
   }
 }
 @media only screen and (max-width: $content-width) {
-  .container {
-    width: 100%;
-    margin: 0;
-  }
   .board {
-    width: 100vw;
+    width: 100%;
+    //width: 100vw;
+  }
+}
+
+.difficulty-panel {
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  li {
+    display: inline;
+    & + li {
+      &:before {
+        content: ' | ';
+      }
+    }
+  }
+  
+  @media only screen and (min-width: 1500px) {
+    position: absolute;
+    right: 900px;
+    text-align: right;
+    margin-top: 40px;
+    margin-right: 2%;
   }
 }
 </style>

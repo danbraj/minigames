@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
 
 Vue.use(Router)
 
@@ -8,8 +7,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home
+      redirect: 'memory'
     },
     {
       path: '/memory',
@@ -20,14 +18,24 @@ export default new Router({
       component: () => import(/* webpackChunkName: "memory" */ './views/Memory.vue')
     },
     {
+      path: '/repeat',
+      name: 'repeat',
+      component: () => import(/* webpackChunkName: "repeat" */ './views/Repeat.vue')
+    },
+    {
       path: '/match3',
       name: 'match3',
       component: () => import(/* webpackChunkName: "match3" */ './views/Match3.vue')
     },
     {
-      path: '/playground',
-      name: 'playground',
-      component: () => import(/* webpackChunkName: "playground" */ './views/Playground.vue')
-    }
+      path: '/settings',
+      name: 'settings',
+      component: () => import(/* webpackChunkName: "settings" */ './views/Settings.vue')
+    },
+    // {
+    //   path: '/playground',
+    //   name: 'playground',
+    //   component: () => import(/* webpackChunkName: "playground" */ './views/Playground.vue')
+    // },
   ]
 })
