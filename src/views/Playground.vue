@@ -1,5 +1,13 @@
 <template>
-    <div class="playground">
-        <h1>This is a playground page</h1>
+  <div>
+    <div class="nav">
+      <div class="nav__wrapper">
+        <router-link class="nav__button" to="/" tag="button">Powrót</router-link>
+        <h1 class="nav__title">Playground</h1>
+      </div>
     </div>
+    <div class="main">
+      <h2>Tratatata</h2>
+    </div>
+  </div>
 </template>

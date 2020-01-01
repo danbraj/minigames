@@ -1,7 +1,18 @@
 <template>
   <div>
-    <span>Poziom {{ level }}</span>
-    <div class="board" v-bind:class="{ 'busy': isBusy }">
+    <div class="nav">
+      <div class="nav__wrapper">
+        <router-link class="nav__button" to="/" tag="button">Powrót</router-link>
+        <h1 class="nav__title">Repeat game</h1>
+        <div class="nav__panel">
+          <span>Poziom {{ level }}</span>
+        </div>
+        <router-link class="nav__button" to="/" tag="button">Od nowa</router-link>
+        <router-link class="nav__button" to="/settings" tag="button">Ustawienia</router-link>
+      </div>
+    </div>
+
+    <div class="game" v-bind:class="{ 'busy': isBusy }">
         
       <div class="screen">
         <asset class="picture" :name="actual"></asset>
@@ -133,28 +144,32 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$content-width  : 900px !default;
+$primary-color  : red !default;
+$secondary-color  : blue !default;
 ul {
     padding: 0;
     list-style-type: none;
 }
-.minigame {
-  width: $content-width;
-  margin: 0 auto;
-}
-.board {
+// .minigame {
+//   width: $content-width;
+//   margin: 0 auto;
+// }
+.game {
   position: relative;
   width: $content-width;
-  margin: 40px 0;
+  text-align: center;
+  // margin: 40px 0;
 
   &.busy {
     pointer-events: none;
   }
 }
-@media only screen and (max-width: $content-width) {
-  .board {
-    width: 100%;
-  }
-}
+// @media only screen and (max-width: $content-width) {
+//   .board {
+//     width: 100%;
+//   }
+// }
 .picture {
   width: 260px;
   height: 260px;

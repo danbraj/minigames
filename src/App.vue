@@ -1,16 +1,11 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/settings">Settings</router-link>
-    </div>
-    <router-view/>
+    <router-view class="page"/>
   </div>
 </template>
 
 <script>
-import fruits from '@/assets/owoce.svg';
+import fruits from '@/assets/fruits.svg';
 export default {
   created() {
     this.$store.commit('setAssetsUrl', fruits);
@@ -26,21 +21,59 @@ html {
 body {
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
+}
+h1 {
+  font-size: 1.5rem;
+}
+h2 {
+  font-size: 1.25rem;
+}
+h3 {
+  font-size: 1.125rem;
+}
+h4 {
+  font-size: 1.05rem;
+}
+a {
+  color: #2c3e50;
+  &.router-link-exact-active {
+    color: #42b983;
+  }
 }
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: $primary-color;
+  // color: $primary-color;
 }
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+
+.main, .game, .nav__wrapper {
+  @extend %wrapper;
+  box-sizing: border-box;
+}
+
+.nav {
+  background-color: #1B325F;
+  color: #eee;
+}
+.nav__wrapper {
+  display: flex;
+  align-items: center;
+  padding: 0
+}
+.nav__title {
+  margin: 0 1rem;
+  padding: .4rem;
+  flex-grow: 1;
+}
+.nav__button {
+  border: 0;
+  background-color: black;
+  color: #eee;
+  // margin: 4px;
+  display: block;
+  width: 70px;
+  height: 70px;
+  cursor: pointer;
 }
 </style>

@@ -1,44 +1,32 @@
 <template>
   <div class="home">
-    <Navbar title="Minigames"/>
-    <GameIcon v-for="(game, index) in minigames" :key="index" :game="game"/>
+    <div class="nav">
+      <div class="nav__wrapper">
+        <h1 class="nav__title">Minigames</h1>
+        <router-link class="nav__button" to="/about" tag="button">Informacje</router-link>
+        <router-link class="nav__button" to="/settings" tag="button">Ustawienia</router-link>
+      </div>
+    </div>
+    <div class="main">
+      <GameIcon v-for="(game, index) in minigames" :key="index" :game="game"/>
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Navbar from '@/components/Navbar.vue';
+// import Navbar from '@/components/Navbar.vue';
 import GameIcon from '@/components/GameIcon.vue';
+import minigames from '@/data/games.js';
 
 export default {
   name: 'home',
   components: {
-    Navbar, GameIcon,
+    GameIcon,
   },
   data() {
     return {
-      minigames: [
-        {
-          name: 'memory',
-          title: 'Memory',
-          status: '',
-        },
-        {
-          name: 'repeat',
-          title: 'Repeat game',
-          status: 'Beta',
-        },
-        {
-          name: 'match3',
-          title: 'Match 3',
-          status: 'Inprogress',
-        },
-        {
-          name: 'playground',
-          title: 'Playground',
-          status: 'Temporary',
-        },
-      ],
+      minigames,
     };
   },
 };

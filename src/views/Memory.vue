@@ -1,15 +1,24 @@
 <template>
   <div>
-    <Navbar title="Memory"/>
-    <div class="difficulty-panel">
-      <ul>
-        <li><a v-on:click="setDifficulty(0)">Łatwy</a></li>
-        <li><a v-on:click="setDifficulty(1)">Średni</a></li>
-        <li><a v-on:click="setDifficulty(2)">Trudny</a></li>
-      </ul>
+    <div class="nav">
+      <div class="nav__wrapper">
+        <router-link class="nav__button" to="/" tag="button">Powrót</router-link>
+        <h1 class="nav__title">Memory</h1>
+        <div class="nav__panel">
+          <div class="difficulty-panel">
+            <ul>
+              <li><a v-on:click="setDifficulty(0)">Łatwy</a></li>
+              <li><a v-on:click="setDifficulty(1)">Średni</a></li>
+              <li><a v-on:click="setDifficulty(2)">Trudny</a></li>
+            </ul>
+          </div>
+        </div>
+        <router-link class="nav__button" to="/" tag="button">Jeszcze raz</router-link>
+        <router-link class="nav__button" to="/settings" tag="button">Ustawienia</router-link>
+      </div>
     </div>
-    <div class="board" v-bind:class="{ 'busy': isBusy }">
-        <progress v-if="cooldown > 0" class="indicator" :value="cooldown" max="25"></progress>
+    <div class="game" v-bind:class="{ 'busy': isBusy }">
+        <progress v-if="cooldown > 0"  class="indicator" :value="cooldown" max="25"></progress>
         <card v-for="(card, index) in cards" :key="index" :card="card" @click.native="flip(index)" v-bind:class="{ 'smaller': isHard }"></card>
         <button v-if="cardsLeft == 0" class="btn--again" @click="restart">Jeszcze raz</button>
     </div>
@@ -18,7 +27,6 @@
 
 <script>
 import Card from '@/components/Card';
-import Navbar from '@/components/Navbar';
 
 const svgDefs = [
   0,  1,  2,  3,  4,  5,
@@ -33,7 +41,7 @@ const difficulty = [6, 12, 18];
 
 export default {
   components: {
-    Navbar, Card
+    Card
   },
   data() {
     return {
@@ -149,33 +157,34 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-a {
-  cursor: pointer;
-  &:hover {
-    color: lighten($color: #3e5871, $amount: 30%);
-  }
-}
-
-.minigame {
-  width: $content-width;
-  margin: 0 auto;
-}
-.board {
+$content-width  : 900px !default;
+$primary-color  : red !default;
+// a {
+//   cursor: pointer;
+//   &:hover {
+//     color: lighten($color: #3e5871, $amount: 30%);
+//   }
+// }
+// .minigame {
+//   width: $content-width;
+//   margin: 0 auto;
+// }
+.game {
   position: relative;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   width: $content-width;
   perspective: 500px;
-  margin: 40px 0;
+  margin-top: 20px;
 
   &.busy {
     pointer-events: none;
   }
 
-  @media only screen and (min-width: 1500px) {
-    margin: 0;
-  }
+  // @media only screen and (min-width: 1500px) {
+  //   margin: 0;
+  // }
 }
 .btn--again {
   margin: 0;
@@ -205,9 +214,11 @@ a {
 
 .indicator {
   position: absolute;
-  top: -25px;
+  // left: 0;
+  top: -20px;
   height: 14px;
-  width: 260px;
+  // width: 260px;
+  width: 100vw;
   appearance: none;
   &::-webkit-progress-bar {
     background-color: #eee;
@@ -220,12 +231,12 @@ a {
     // background-size: 100% 100%;
   }
 }
-@media only screen and (max-width: $content-width) {
-  .board {
-    width: 100%;
-    //width: 100vw;
-  }
-}
+// @media only screen and (max-width: $content-width) {
+//   .game {
+//     width: 100%;
+//     //width: 100vw;
+//   }
+// }
 
 .difficulty-panel {
   ul {
@@ -241,12 +252,12 @@ a {
     }
   }
   
-  @media only screen and (min-width: 1500px) {
-    position: absolute;
-    right: 900px;
-    text-align: right;
-    margin-top: 40px;
-    margin-right: 2%;
-  }
+  // @media only screen and (min-width: 1500px) {
+  //   position: absolute;
+  //   right: 900px;
+  //   text-align: right;
+  //   margin-top: 40px;
+  //   margin-right: 2%;
+  // }
 }
 </style>
