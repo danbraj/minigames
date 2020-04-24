@@ -25,17 +25,33 @@ $front-border: #ccc !default;
 $back-color: #cca4a3 !default;
 $back-border: #aaa !default;
 
+$card-width: 25vw;
+$card-height: 25vh;
+
 .card {
     box-sizing: border-box;
-    width: $card-width;
-    height: $card-height;
-    margin: 6px;
+    // width: calc(#{$card-width} - .8rem);
+    // height: calc(#{$card-height} - .8rem);
+    // margin: .4rem;
+    width: calc((100% - 8 * 5px) / 4);
+    height: calc((100vh - 90px - (12 * 5px)) / 6);
+    margin: 5px;
     position: relative;
     transition: transform 0.33s;
-    transform-style: preserve-3d;  
+    transform-style: preserve-3d;
+
+    @media (min-aspect-ratio: 1/1) {
+        width: calc((100% - 12 * 5px) / 6);
+        height: calc((100vh - 90px - (8 * 5px)) / 4);
+    }
 }
-.smaller {
-    height: $card-width;
+.card--small {
+    width: calc((100% - 8 * 5px) / 4);
+    height: calc((100vh - 90px - (18 * 5px)) / 9);
+    @media (min-aspect-ratio: 1/1) {
+        width: calc((100% - 18 * 5px) / 9);
+        height: calc((100vh - 90px - (8 * 5px)) / 4);
+    }
 }
 .card--flipped {
     transform: rotateY(180deg);
@@ -57,7 +73,7 @@ $back-border: #aaa !default;
     height: 100%;
     width: 100%;
     backface-visibility: hidden;
-    border-radius: 12px;
+    // border-radius: 12px;
 }
 .card__front {
     @extend %card-side;

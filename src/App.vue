@@ -76,4 +76,24 @@ a {
   height: 70px;
   cursor: pointer;
 }
+.nav__panel {
+    margin: 0 1rem;
+}
+
+.feather {
+  width: 32px;
+  height: 32px;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+// @media (max-aspect-ratio: 1/1) {
+//   .page {
+//     display: flex;
+//     flex-direction: column-reverse;
+//   }
+// }
 </style>

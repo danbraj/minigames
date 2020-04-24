@@ -44,10 +44,10 @@ export default new VueRouter({
       name: 'snake',
       component: () => import(/* webpackChunkName: "snakeGame" */ '../views/SnakeGame.vue')
     },
-    {
-      path: '/playground',
-      name: 'playground',
-      component: () => import(/* webpackChunkName: "playground" */ '../views/Playground.vue')
-    },
+    // {
+    //   path: '/playground',
+    //   name: 'playground',
+    //   component: () => import(/* webpackChunkName: "playground" */ '../views/Playground.vue')
+    // },
   ],
 });

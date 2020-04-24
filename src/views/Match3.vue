@@ -2,11 +2,15 @@
   <div>
     <div class="nav">
       <div class="nav__wrapper">
-        <router-link class="nav__button" to="/" tag="button">Powrót</router-link>
+        <router-link class="nav__button" to="/" tag="button" aria-label="Powrót">
+          <svg class="feather">
+            <use xlink:href="/res/feather-sprite.svg#arrow-left"/>
+          </svg>
+        </router-link>
         <h1 class="nav__title">Match 3</h1>
         <div class="nav__panel"></div>
-        <router-link class="nav__button" to="/" tag="button">Jeszcze raz</router-link>
-        <router-link class="nav__button" to="/settings" tag="button">Ustawienia</router-link>
+        <!-- <router-link class="nav__button" to="/" tag="button">Jeszcze raz</router-link>
+        <router-link class="nav__button" to="/settings" tag="button">Ustawienia</router-link> -->
       </div>
     </div>
     <div class="container">

@@ -2,13 +2,20 @@
   <div>
     <div class="nav">
       <div class="nav__wrapper">
-        <router-link class="nav__button" to="/" tag="button">Powrót</router-link>
+        <router-link class="nav__button" to="/" tag="button" aria-label="Powrót">
+          <svg class="feather">
+            <use xlink:href="/res/feather-sprite.svg#arrow-left"/>
+          </svg>
+        </router-link>
         <h1 class="nav__title">Repeat game</h1>
         <div class="nav__panel">
           <span>Poziom {{ level }}</span>
         </div>
-        <router-link class="nav__button" to="/" tag="button">Od nowa</router-link>
-        <router-link class="nav__button" to="/settings" tag="button">Ustawienia</router-link>
+        <router-link class="nav__button" to="/" tag="button" aria-label="Od nowa">
+          <svg class="feather">
+            <use xlink:href="/res/feather-sprite.svg#skip-back"/>
+          </svg>
+        </router-link>        
       </div>
     </div>
 
