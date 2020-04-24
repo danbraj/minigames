@@ -1,18 +1,44 @@
 <template>
-    <div>
-        <div class="difficulty-panel">
-          <ul>
-            <li><a v-on:click="setDifficulty(0)">Łatwy</a></li>
-            <li><a v-on:click="setDifficulty(1)">Średni</a></li>
-            <li><a v-on:click="setDifficulty(2)">Trudny</a></li>
-          </ul>
+  <div>
+    <div class="nav">
+      <div class="nav__wrapper">
+        <router-link class="nav__button" to="/" tag="button" aria-label="Powrót">
+          <svg class="feather">
+            <use xlink:href="/res/feather-sprite.svg#arrow-left"/>
+          </svg>
+        </router-link>
+        <h1 class="nav__title">Memory</h1>
+        <div class="nav__panel">
+          <span>Poziom {{ isHard ? 'trudny' : 'normalny' }}</span>
+          <!-- <div class="difficulty-panel">
+            <ul>
+              <li><a v-on:click="setDifficulty(0)">Łatwy</a></li>
+              <li><a v-on:click="setDifficulty(1)">Średni</a></li>
+              <li><a v-on:click="setDifficulty(2)">Trudny</a></li>
+            </ul>
+          </div> -->
         </div>
-        <div class="board" v-bind:class="{ 'busy': isBusy }">
-            <progress v-if="cooldown > 0" class="indicator" :value="cooldown" max="25"></progress>
-            <card v-for="(card, index) in cards" :key="index" :card="card" @click.native="flip(index)" v-bind:class="{ 'smaller': isHard }"></card>
-            <button v-if="cardsLeft == 0" class="btn--again" @click="restart">Jeszcze raz</button>
-        </div>
+        <button class="nav__button" v-on:click="toggleHardDifficulty()" tag="button" aria-label="Ustawienia">
+          <svg class="feather" v-if="isHard">
+            <use xlink:href="/res/feather-sprite.svg#chevron-down"/>
+          </svg>
+          <svg class="feather" v-else>
+            <use xlink:href="/res/feather-sprite.svg#chevrons-up"/>
+          </svg>
+        </button>
+        <button class="nav__button" v-on:click="restart()" tag="button" aria-label="Jeszsze raz">
+          <svg class="feather">
+            <use xlink:href="/res/feather-sprite.svg#refresh-cw"/>
+          </svg>
+        </button>
+      </div>
     </div>
+    <div class="game" v-bind:class="{ 'busy': isBusy }">
+        <progress v-if="cooldown > 0"  class="indicator" :value="cooldown" max="25"></progress>
+        <card v-for="(card, index) in cards" :key="index" :card="card" @click.native="flip(index)" v-bind:class="{ 'card--small': isHard }"></card>
+        <button v-if="cardsLeft == 0" class="btn--again" @click="restart">Jeszcze raz</button>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -31,11 +57,11 @@ const difficulty = [6, 12, 18];
 
 export default {
   components: {
-    card: Card
+    Card
   },
   data() {
     return {
-      difficulty: 0,
+      difficulty: 1,
       cards: [],
       cardsCount: -1,
       cardsLeft: -1,
@@ -141,39 +167,49 @@ export default {
         this.restart();
         this.cards = null;
       }
+    },
+    toggleHardDifficulty() {
+      if (!this.isBusy) {
+        this.difficulty = this.difficulty == 2 ? 1 : 2;
+        this.restart();
+        this.cards = null;
+      }
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-a {
-  cursor: pointer;
-  &:hover {
-    color: lighten($color: #3e5871, $amount: 30%);
-  }
-}
-
-.minigame {
-  width: $content-width;
-  margin: 0 auto;
-}
-.board {
+$content-width  : 900px !default;
+$primary-color  : red !default;
+// a {
+//   cursor: pointer;
+//   &:hover {
+//     color: lighten($color: #3e5871, $amount: 30%);
+//   }
+// }
+// .minigame {
+//   width: $content-width;
+//   margin: 0 auto;
+// }
+.game {
   position: relative;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  width: $content-width;
-  perspective: 500px;
-  margin: 40px 0;
+  // width: $content-width;
+  perspective: 66vw;
+  width: initial;
+  margin: 20px 0 0 0;
+  padding: 0;
 
   &.busy {
     pointer-events: none;
   }
 
-  @media only screen and (min-width: 1500px) {
-    margin: 0;
-  }
+  // @media only screen and (min-width: 1500px) {
+  //   margin: 0;
+  // }
 }
 .btn--again {
   margin: 0;
@@ -203,9 +239,11 @@ a {
 
 .indicator {
   position: absolute;
-  top: -25px;
+  // left: 0;
+  top: -20px;
   height: 14px;
-  width: 260px;
+  // width: 260px;
+  width: 100vw;
   appearance: none;
   &::-webkit-progress-bar {
     background-color: #eee;
@@ -218,12 +256,12 @@ a {
     // background-size: 100% 100%;
   }
 }
-@media only screen and (max-width: $content-width) {
-  .board {
-    width: 100%;
-    //width: 100vw;
-  }
-}
+// @media only screen and (max-width: $content-width) {
+//   .game {
+//     width: 100%;
+//     //width: 100vw;
+//   }
+// }
 
 .difficulty-panel {
   ul {
@@ -239,12 +277,12 @@ a {
     }
   }
   
-  @media only screen and (min-width: 1500px) {
-    position: absolute;
-    right: 900px;
-    text-align: right;
-    margin-top: 40px;
-    margin-right: 2%;
-  }
+  // @media only screen and (min-width: 1500px) {
+  //   position: absolute;
+  //   right: 900px;
+  //   text-align: right;
+  //   margin-top: 40px;
+  //   margin-right: 2%;
+  // }
 }
 </style>

@@ -1,10 +1,13 @@
 module.exports = {
-    baseUrl: './',
-    css: {
-        loaderOptions: {
-            sass: {
-                data: `@import "@/scss/main.scss";`
-            }
-        }
+  // publicPath: './',
+  css: {
+    loaderOptions: {
+      sass: {
+        prependData: `
+          @import "@/scss/_variables.scss";
+          @import "@/scss/_mixins.scss";
+        `
+      }
     }
+  }
 }

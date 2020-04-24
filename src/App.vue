@@ -1,60 +1,99 @@
 <template>
-  <div id="minigames" class="minigames">
-    <games></games>
-    <router-view class="panel"></router-view>
+  <div id="app">
+    <router-view class="page"/>
   </div>
 </template>
 
 <script>
-import Games from '@/components/Games';
-import fruits from '@/assets/owoce.svg';
-
+import fruits from '@/assets/fruits.svg';
 export default {
   created() {
     this.$store.commit('setAssetsUrl', fruits);
   },
-  components: {
-    'games': Games
-  },
-  name: 'minigames'
 }
 </script>
 
 <style lang="scss">
-$content-width: 1200px !default;
-$normal-font-size: 16px !default;
-
+$primary-color      : blue !default;
+html {
+  font: $prime-font;
+}
 body {
   margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
-
-.minigames {
-  
-  font-family: Helvetica, sans-serif;
+h1 {
+  font-size: 1.5rem;
+}
+h2 {
+  font-size: 1.25rem;
+}
+h3 {
+  font-size: 1.125rem;
+}
+h4 {
+  font-size: 1.05rem;
+}
+a {
+  color: #2c3e50;
+  &.router-link-exact-active {
+    color: #42b983;
+  }
+}
+#app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  //padding-top: 80px;
-  position: relative;
-  font-size: $normal-font-size;
-
-  a {
-    text-decoration: none;
-    font-weight: bold;
-  }
-
-  .panel {
-    width: $content-width;
-    margin: 0 auto;
-    position: relative;
-  }
-
-  @media only screen and (max-width: $content-width) {
-    .panel {
-      width: 100%;
-      margin: 0;
-    }
-  }
+  // color: $primary-color;
 }
+
+.main, .game, .nav__wrapper {
+  @extend %wrapper;
+  box-sizing: border-box;
+}
+
+.nav {
+  background-color: #1B325F;
+  color: #eee;
+}
+.nav__wrapper {
+  display: flex;
+  align-items: center;
+  padding: 0
+}
+.nav__title {
+  margin: 0 1rem;
+  padding: .4rem;
+  flex-grow: 1;
+}
+.nav__button {
+  border: 0;
+  background-color: black;
+  color: #eee;
+  // margin: 4px;
+  display: block;
+  width: 70px;
+  height: 70px;
+  cursor: pointer;
+}
+.nav__panel {
+    margin: 0 1rem;
+}
+
+.feather {
+  width: 32px;
+  height: 32px;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+// @media (max-aspect-ratio: 1/1) {
+//   .page {
+//     display: flex;
+//     flex-direction: column-reverse;
+//   }
+// }
 </style>

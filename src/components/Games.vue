@@ -25,17 +25,17 @@ export default {
                     description: 'Memory game',
                     status: ''
                 },
-                // {
-                //     name: 'match3',
-                //     title: 'Match 3',
-                //     description: 'Match 3 puzzle game',
-                //     status: 'Inprogress'
-                // },
                 {
                     name: 'repeat',
                     title: 'Repeat Game',
                     description: 'Repeat game',
                     status: ''
+                },
+                {
+                    name: 'match3',
+                    title: 'Match 3',
+                    description: 'Match 3 puzzle game',
+                    status: 'Inprogress'
                 },
                 // {
                 //     name: 'playground',
