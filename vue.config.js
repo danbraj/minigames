@@ -1,12 +1,8 @@
 module.exports = {
-  // publicPath: './',
   css: {
     loaderOptions: {
       sass: {
-        prependData: `
-          @import "@/scss/_variables.scss";
-          @import "@/scss/_mixins.scss";
-        `
+        additionalData: '@import "@/styles/settings.scss";',
       }
     }
   }

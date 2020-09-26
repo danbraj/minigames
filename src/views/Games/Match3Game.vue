@@ -21,7 +21,7 @@
           :idx="idx"
           :item="e"
           v-bind:style="{ left: px(e.x*100), top: px(e.y*100) }"
-          @click.native="del(idx)"
+          @click="del(idx)"
         ></item>
         <!-- v-if="e != null"  -->
       </div>

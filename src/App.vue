@@ -75,14 +75,16 @@ a {
   width: 70px;
   height: 70px;
   cursor: pointer;
+  padding: 0;
 }
 .nav__panel {
-    margin: 0 1rem;
+  margin: 0 1rem;
 }
 
-.feather {
+.feather { // NOTE: element menu, a nie abstracyjny
   width: 32px;
   height: 32px;
+  margin: 19px;
   stroke: currentColor;
   stroke-width: 2;
   stroke-linecap: round;

@@ -23,10 +23,10 @@ export default [
     imagePath: '/res/thumbnail-match3.jpg',
     status: 'Soon',
   },
-  // {
-  //   name: 'playground',
-  //   title: 'Playground',
-  //   imagePath: 'https://placekitten.com/300/200',
-  //   status: 'Temporary',
-  // },
+  {
+    name: 'playground',
+    title: 'Playground',
+    imagePath: '',
+    status: 'Temporary',
+  },
 ];
