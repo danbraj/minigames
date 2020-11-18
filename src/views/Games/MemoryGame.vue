@@ -35,7 +35,7 @@
     </div>
     <div class="game" v-bind:class="{ 'busy': isBusy }">
         <progress v-if="cooldown > 0"  class="indicator" :value="cooldown" max="25"></progress>
-        <card v-for="(card, index) in cards" :key="index" :card="card" @click.native="flip(index)" v-bind:class="{ 'card--small': isHard }"></card>
+        <card v-for="(card, index) in cards" :key="index" :card="card" @click="flip(index)" v-bind:class="{ 'card--small': isHard }"></card>
         <button v-if="cardsLeft == 0" class="btn--again" @click="restart">Jeszcze raz</button>
     </div>
   </div>
@@ -109,7 +109,7 @@ export default {
                 this.cooldown++; 
               }
             } 
-            const interval = setInterval(cool, 100);
+            const interval = setInterval(cool, 75);
             // setTimeout(() => {
             //   this.cards[a].isFlipped = false;
             //   this.cards[b].isFlipped = false;

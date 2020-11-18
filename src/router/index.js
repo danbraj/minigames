@@ -38,7 +38,7 @@ const routes = [
   {
     path: '/snake',
     name: 'Snake',
-    component: () => import(/* webpackChunkName: "snakeGame" */ '../views/Games/SnakeGame.vue')
+    component: () => import(/* webpackChunkName: "snake" */ '../views/Games/SnakeGame.vue')
   },
   {
     path: '/playground',
